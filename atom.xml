@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wowcode2020.github.io</id>
     <title>Gridea</title>
-    <updated>2020-04-29T12:58:31.692Z</updated>
+    <updated>2020-05-06T08:56:55.986Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wowcode2020.github.io"/>
     <link rel="self" href="https://wowcode2020.github.io/atom.xml"/>
@@ -10,6 +10,57 @@
     <logo>https://wowcode2020.github.io/images/avatar.png</logo>
     <icon>https://wowcode2020.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[求岛屿的最大面积]]></title>
+        <id>https://wowcode2020.github.io/post/qiu-dao-yu-de-zui-da-mian-ji/</id>
+        <link href="https://wowcode2020.github.io/post/qiu-dao-yu-de-zui-da-mian-ji/">
+        </link>
+        <updated>2020-05-06T08:54:24.000Z</updated>
+        <summary type="html"><![CDATA[<p>给定一个包含了一些 0 和 1 的非空二维数组 grid 。<br>
+一个 岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在水平或者竖直方向上相邻。你可以假设 grid 的四个边缘都被 0（代表水）包围着。<br>
+找到给定的二维数组中最大的岛屿面积。(如果没有岛屿，则返回面积为 0 。)<br>
+<img src="https://wowcode2020.github.io/post-images/1588755354322.png" alt="" loading="lazy"></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>给定一个包含了一些 0 和 1 的非空二维数组 grid 。<br>
+一个 岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在水平或者竖直方向上相邻。你可以假设 grid 的四个边缘都被 0（代表水）包围着。<br>
+找到给定的二维数组中最大的岛屿面积。(如果没有岛屿，则返回面积为 0 。)<br>
+<img src="https://wowcode2020.github.io/post-images/1588755354322.png" alt="" loading="lazy"></p>
+<!-- more -->
+<p>/**</p>
+<ul>
+<li>
+<p>@param {number[][]} grid</p>
+</li>
+<li>
+<p>@return {number}<br>
+*/<br>
+var maxAreaOfIsland = function(grid) {<br>
+let result = 0<br>
+for(let row=0; row&lt;grid.length; row++) {<br>
+for(let col=0;col&lt;grid[row].length;col++) {<br>
+if(grid[row][col] === 1) {<br>
+result = Math.max(result,ads(row, col))<br>
+}<br>
+}<br>
+}<br>
+function ads(row, col) {<br>
+if(row&lt;0 || row&gt;= grid.length || col&lt;0 || col&gt;= grid[row].length || grid[row][col] == 0) {<br>
+return 0<br>
+}<br>
+let count = 1<br>
+grid[row][col] = 0<br>
+count += ads(row-1, col)<br>
+count += ads(row+1, col)<br>
+count += ads(row, col-1)<br>
+count += ads(row, col+1)<br>
+return count<br>
+}</p>
+<p>return result<br>
+};</p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://wowcode2020.github.io/post/hello-gridea/</id>
