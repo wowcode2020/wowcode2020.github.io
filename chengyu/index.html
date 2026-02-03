@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成语智慧阁 - 传承千年智慧</title>
+    <meta name="description" content="探索中华成语文化，传承千年智慧结晶。提供成语查询、成语接龙等学习功能。">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="night-sky-canvas"></div>
+    <canvas id="starsCanvas" class="stars-canvas"></canvas>
+    <canvas id="fireflyCanvas" class="firefly-canvas"></canvas>
+    
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <div class="logo-seal">
+                            <span>成语</span>
+                        </div>
+                        <h1 class="logo-text">智慧阁</h1>
+                    </div>
+                    <nav class="nav-menu">
+                        <a href="#" class="nav-link active" data-page="home">首页</a>
+                        <a href="#" class="nav-link" data-page="search">成语查询</a>
+                        <a href="#" class="nav-link" data-page="game">成语接龙</a>
+                        <a href="#" class="nav-link" data-page="collection">我的收藏</a>
+                    </nav>
+                    <button class="mobile-menu-btn" aria-label="菜单">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- 首页 -->
+            <section id="page-home" class="page active">
+                <div class="container">
+                    <div class="hero-section">
+                        <h2 class="hero-title">
+                            <span class="title-line">成</span>
+                            <span class="title-line">语</span>
+                            <span class="title-line">智</span>
+                            <span class="title-line">慧</span>
+                            <span class="title-line">阁</span>
+                        </h2>
+                        <p class="hero-subtitle">传承千年智慧，领略成语之美</p>
+                        
+                        <div class="search-box glass-card">
+                            <div class="search-input-wrapper">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="M21 21l-4.35-4.35"></path>
+                                </svg>
+                                <input type="text" id="heroSearchInput" class="search-input" 
+                                       placeholder="输入成语关键词，如&#34;一心一...&#34;" autocomplete="off">
+                                <div id="searchSuggestions" class="search-suggestions"></div>
+                            </div>
+                            <button id="heroSearchBtn" class="btn btn-primary">查询成语</button>
+                        </div>
+                    </div>
+
+                    <div class="features-section">
+                        <div class="feature-cards">
+                            <div class="feature-card glass-card" data-page="search">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3>成语查询</h3>
+                                <p>搜索成语，查看拼音、解释、出处和例句</p>
+                            </div>
+                            <div class="feature-card glass-card" data-page="game">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3>成语接龙</h3>
+                                <p>挑战成语接龙，检验你的成语储备</p>
+                            </div>
+                            <div class="feature-card glass-card" data-page="collection">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                    </svg>
+                                </div>
+                                <h3>我的收藏</h3>
+                                <p>收藏喜爱的成语，管理学习进度</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 首页搜索结果展示区域 -->
+                    <div id="homeSearchResult" class="home-search-result" style="display: none;">
+                        <h3 class="section-title">搜索结果</h3>
+                        <div id="homeResultContent"></div>
+                    </div>
+
+                    <div class="daily-section">
+                        <h3 class="section-title">今日推荐</h3>
+                        <div id="dailyIdioms" class="daily-idioms">
+                            <div class="loading-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 成语查询页 -->
+            <section id="page-search" class="page">
+                <div class="container">
+                    <div class="search-page glass-card">
+                        <h2 class="page-title">成语查询</h2>
+                        <div class="search-form">
+                            <div class="search-input-wrapper large">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="M21 21l-4.35-4.35"></path>
+                                </svg>
+                                <input type="text" id="searchPageInput" class="search-input" 
+                                       placeholder="输入成语关键词，支持前缀匹配..." autocomplete="off">
+                                <div id="searchPageSuggestions" class="search-suggestions"></div>
+                            </div>
+                            <button id="searchPageBtn" class="btn btn-primary">查询</button>
+                        </div>
+                        
+                        <div id="searchHistory" class="search-history">
+                            <div class="history-header">
+                                <span>搜索历史</span>
+                                <button id="clearHistory" class="clear-history">清空</button>
+                            </div>
+                            <div id="historyList" class="history-list"></div>
+                        </div>
+
+                        <div id="searchResult" class="search-result"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 成语接龙页 -->
+            <section id="page-game" class="page">
+                <div class="container">
+                    <div class="game-page glass-card">
+                        <h2 class="page-title">成语接龙</h2>
+                        
+                        <div id="gameStart" class="game-start">
+                            <div class="game-info">
+                                <h3>游戏规则</h3>
+                                <ul>
+                                    <li>系统给出一个成语，您需要输入一个以该成语最后一个字开头的成语</li>
+                                    <li>例如：系统出&#34;一心一意&#34;，您可以接&#34;意气风发&#34;</li>
+                                    <li>连续成功获得积分，失误会扣除积分</li>
+                                    <li>每局有3次提示机会</li>
+                                </ul>
+                            </div>
+                            <div class="game-difficulty">
+                                <h3>选择难度</h3>
+                                <div class="difficulty-options">
+                                    <button class="difficulty-btn active" data-difficulty="easy">简单</button>
+                                    <button class="difficulty-btn" data-difficulty="normal">普通</button>
+                                    <button class="difficulty-btn" data-difficulty="hard">困难</button>
+                                </div>
+                            </div>
+                            <button id="startGameBtn" class="btn btn-primary btn-large">开始游戏</button>
+                        </div>
+
+                        <div id="gamePlaying" class="game-playing" style="display: none;">
+                            <div class="game-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">连续正确</span>
+                                    <span id="streakCount" class="stat-value">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">当前得分</span>
+                                    <span id="currentScore" class="stat-value">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">提示次数</span>
+                                    <span id="hintCount" class="stat-value">3</span>
+                                </div>
+                            </div>
+                            
+                            <div id="gameChain" class="game-chain">
+                                <div id="currentIdiom" class="current-idiom">
+                                    <div class="idiom-display glass-card">
+                                        <p id="idiomWord" class="idiom-word"></p>
+                                        <p id="idiomPinyin" class="idiom-pinyin"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="game-input-area">
+                                <input type="text" id="gameInput" class="game-input" 
+                                       placeholder="输入接龙的成语..." autocomplete="off">
+                                <button id="submitAnswerBtn" class="btn btn-primary">提交</button>
+                                <button id="useHintBtn" class="btn btn-secondary">提示</button>
+                            </div>
+                            
+                            <div id="gameFeedback" class="game-feedback"></div>
+                        </div>
+
+                        <div id="gameOver" class="game-over" style="display: none;">
+                            <h3>游戏结束</h3>
+                            <div class="game-result">
+                                <p>最终得分：<span id="finalScore">0</span></p>
+                                <p>最高连续：<span id="maxStreak">0</span></p>
+                            </div>
+                            <div class="game-result-actions">
+                                <button id="restartGameBtn" class="btn btn-primary">再来一局</button>
+                                <button id="backToMenuBtn" class="btn btn-secondary">返回菜单</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 我的收藏页 -->
+            <section id="page-collection" class="page">
+                <div class="container">
+                    <div class="collection-page glass-card">
+                        <h2 class="page-title">我的收藏</h2>
+                        
+                        <div class="collection-stats">
+                            <div class="stat-item">
+                                <span class="stat-value" id="totalCollection">0</span>
+                                <span class="stat-label">收藏总数</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="learnedCount">0</span>
+                                <span class="stat-label">已学习</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="learningCount">0</span>
+                                <span class="stat-label">学习中</span>
+                            </div>
+                        </div>
+                        
+                        <div class="collection-tabs">
+                            <button class="tab-btn active" data-tab="all">全部</button>
+                            <button class="tab-btn" data-tab="learning">学习中</button>
+                            <button class="tab-btn" data-tab="learned">已学习</button>
+                        </div>
+                        
+                        <div id="collectionList" class="collection-list">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                </svg>
+                                <p>暂无收藏，去添加一些成语吧！</p>
+                            </div>
+                        </div>
+                        
+                        <div class="collection-actions">
+                            <button id="exportCollection" class="btn btn-secondary">导出收藏</button>
+                            <button id="clearCollection" class="btn btn-secondary danger">清空收藏</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>© 2024 成语智慧阁 | 基于 Alapi 成语词典API</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast提示 -->
+    <div id="toast" class="toast"></div>
+    
+    <!-- Loading遮罩 -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/stars.js"></script>
+    <script src="js/firefly.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
